@@ -48,6 +48,9 @@ class SpeedCourseAnomalyDetector:
         with mp.Pool(processes=NUM_WORKERS) as pool:
             results = pool.map(self.detect_anomalies_for_vessel, vessel_list)
 
+        pool.close()
+        pool.join()
+        
         # Unpack results into separate lists
         speed_anomalies_list, course_anomalies_list = zip(*results)
 

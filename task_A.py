@@ -42,6 +42,9 @@ class LocationAnomalyDetector:
         with mp.Pool(processes=NUM_WORKERS) as pool:
             results = pool.map(self.detect_anomalies_for_vessel, vessel_list)
 
+        pool.close()
+        pool.join()
+        
         # Unpack results into separate lists
         jump_anomalies_list, invalid_jumps_list = zip(*results)
 
