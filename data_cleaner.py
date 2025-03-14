@@ -1,5 +1,5 @@
 """
-Main file for cleaning data (droping useless columns, droping NA values)
+Main file for cleaning data (droping useless columns, droping NA values, removing duplicate rows)
 """
 import pandas as pd
 from parallel_processor import ParallelProcessing
@@ -19,7 +19,8 @@ class DataCleaner:
             chunk['# Timestamp'] = pd.to_datetime(chunk['# Timestamp'], errors='coerce')
 
         chunk.dropna(subset=['Latitude', 'Longitude', '# Timestamp'], inplace=True)
-        #chunk.drop_duplicates(inplace=True)
+        # Dropping duplicate rows
+        chunk.drop_duplicates(inplace=True)
 
         return chunk
     @tw.timeit
