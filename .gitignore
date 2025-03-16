@@ -1,0 +1,6 @@
+*.csv
+*__pycache__
+bda1
+plots
+execution_times.log
+resource_usage.log
