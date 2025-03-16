@@ -32,9 +32,7 @@ def print_execution_summary():
     print("\nExecution Time Summary:")
 
     total_time = 0
-
-
     for func_name, exec_time in execution_times:
         print(f"{func_name} took {exec_time:.4f} seconds")
-        total_time += exec_time
-    print(f"\nTotal Execution Time: {total_time:.4f} seconds")
+        
+
