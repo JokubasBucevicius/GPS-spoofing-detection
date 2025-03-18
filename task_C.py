@@ -36,13 +36,18 @@ class NeighboringVesselAnomalyDetector:
         # Identify vessels in this grid that appear in anomaly datasets
         grid_mmsi = set(grid_data["MMSI"])
         
+        anomaly_mmsi_sets = []
+        for anomaly_df, name in zip(
+            [self.jump_anomalies, self.invalid_jumps, self.speed_anomalies, self.course_anomalies], 
+            ["jump_anomalies", "invalid_jumps", "speed_anomalies", "course_anomalies"]
+        ):
+            if anomaly_df is not None and not anomaly_df.empty and "MMSI" in anomaly_df.columns:
+                anomaly_mmsi_sets.append(set(anomaly_df["MMSI"]))
+            
         # Get unique vessels that have anomalies
-        vessels_with_anomalies = (
-            grid_mmsi & set(self.jump_anomalies["MMSI"]) |
-            grid_mmsi & set(self.invalid_jumps["MMSI"]) |
-            grid_mmsi & set(self.speed_anomalies["MMSI"]) |
-            grid_mmsi & set(self.course_anomalies["MMSI"])
-        )
+        vessels_with_anomalies = set.union(*anomaly_mmsi_sets) if anomaly_mmsi_sets else set()        
+       
+        
 
         total_anomalous_vessels = len(vessels_with_anomalies)
 
