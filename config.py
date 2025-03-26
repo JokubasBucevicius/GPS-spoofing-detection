@@ -1,0 +1,2 @@
+FILE_PATH = "aisdk-2024-07-06.csv"
+GRID_SIZE = 0.4
